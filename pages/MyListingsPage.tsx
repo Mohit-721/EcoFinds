@@ -1,8 +1,8 @@
-
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
 import { useAuth } from '../hooks/useAuth';
+import ProductCard from '../components/ProductCard';
 
 const MyListingsPage: React.FC = () => {
     const { products, deleteProduct } = useProducts();
@@ -19,36 +19,31 @@ const MyListingsPage: React.FC = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold text-primary">My Listings</h1>
-                <Link to="/add-product" className="bg-accent text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors flex items-center gap-2">
-                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg>
-                    Add New Product
-                </Link>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-                {userProducts.length === 0 ? (
-                    <p className="text-center text-gray-500 py-8">You have not listed any products yet.</p>
-                ) : (
-                    <div className="space-y-4">
-                        {userProducts.map(product => (
-                            <div key={product.id} className="flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow">
-                                <div className="flex items-center gap-4">
-                                    <img src={product.imageUrl} alt={product.title} className="w-20 h-20 object-cover rounded-md"/>
-                                    <div>
-                                        <h3 className="font-bold text-lg text-gray-800">{product.title}</h3>
-                                        <p className="text-primary font-semibold">${product.price.toFixed(2)}</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-4">
-                                    <Link to={`/edit-product/${product.id}`} className="text-blue-600 hover:underline">Edit</Link>
-                                    <button onClick={() => handleDelete(product.id, product.title)} className="text-red-600 hover:underline">Delete</button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+        <div className="max-w-6xl mx-auto relative">
+            {/* Decorative background images */}
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="decorative-bg" className="absolute top-0 left-0 w-1/3 h-64 object-cover opacity-10 rounded-2xl pointer-events-none select-none z-0" />
+            <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" alt="decorative-bg2" className="absolute bottom-0 right-0 w-1/4 h-48 object-cover opacity-10 rounded-2xl pointer-events-none select-none z-0" />
+            <div className="relative z-10">
+                <div className="flex justify-between items-center mb-8">
+                    <h1 className="text-4xl font-extrabold text-primary tracking-tight">My Listings</h1>
+                    <Link to="/add-product" className="bg-accent text-white px-5 py-3 rounded-lg shadow hover:bg-opacity-90 transition-colors flex items-center gap-2 font-semibold text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg>
+                        Add New Product
+                    </Link>
+                </div>
+                <div className="bg-white/90 p-8 rounded-2xl shadow-xl min-h-[300px]">
+                    {userProducts.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-16">
+                            <img src="https://illustrations.popsy.co/gray/empty-box.svg" alt="No listings" className="w-40 mb-6 opacity-80" />
+                            <p className="text-2xl text-gray-500 font-medium">You have not listed any products yet.</p>
+                            <Link to="/add-product" className="mt-6 bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">Add Your First Listing</Link>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center py-16 w-full">
+                            <p className="text-2xl text-gray-500 font-medium mb-6">All product photos have been removed for privacy.</p>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
