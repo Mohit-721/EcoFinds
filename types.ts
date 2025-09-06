@@ -7,6 +7,16 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
+// Fix: Moved Category enum definition before the Database interface that uses it.
+export enum Category {
+  ELECTRONICS = 'Electronics',
+  FURNITURE = 'Furniture',
+  CLOTHING = 'Clothing',
+  BOOKS = 'Books',
+  HOME_GOODS = 'Home Goods',
+  OTHER = 'Other',
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -119,15 +129,6 @@ export interface Database {
       [_ in never]: never
     }
   }
-}
-
-export enum Category {
-  ELECTRONICS = 'Electronics',
-  FURNITURE = 'Furniture',
-  CLOTHING = 'Clothing',
-  BOOKS = 'Books',
-  HOME_GOODS = 'Home Goods',
-  OTHER = 'Other',
 }
 
 // Client-side hydrated types
